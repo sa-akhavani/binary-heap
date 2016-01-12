@@ -125,10 +125,7 @@ public class Heap<Key extends Comparable<Key>> {
     }
 
 
-    /*-------------------------------*/
-    /*-------------------------------*/
-    /*-------------------------------*/
-    /*          Test                 */
+    /******************* Test **********************/
     public static void main(String[] args) {
 //        ArrayList<Double> myData = new ArrayList<>();
 
