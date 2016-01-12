@@ -11,7 +11,11 @@ public class Heap<Key extends Comparable<Key>> {
     }
 
     public Heap(ArrayList<Key> initialVal) {
-        data = new ArrayList<>();
+        data = initialVal;
+        for (int i = (data.size() / 2) - 1; i >= 0 ; i--) {
+            heapifyUp(i);
+        }
+
     }
 
     public void insert(Key k) {
@@ -127,10 +131,15 @@ public class Heap<Key extends Comparable<Key>> {
 
     /******************* Test **********************/
     public static void main(String[] args) {
-//        ArrayList<Double> myData = new ArrayList<>();
-
-//        Heap myHeap = new Heap(myData);
-        Heap myHeap = new Heap();
+        ArrayList<Double> myData = new ArrayList<>();
+        myData.add(0.2);
+        myData.add(1.2);
+        myData.add(2.2);
+        myData.add(1.9);
+        Heap myHeap = new Heap(myData);
+//        Heap myHeap = new Heap();
+        myHeap.printAll();
+        System.out.println("****");
         myHeap.insert(1.54);
         myHeap.insert(1.6);
         myHeap.insert(0.9);
