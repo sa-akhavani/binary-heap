@@ -13,9 +13,8 @@ public class Heap<Key extends Comparable<Key>> {
     public Heap(ArrayList<Key> initialVal) {
         data = initialVal;
         for (int i = (data.size() / 2) - 1; i >= 0 ; i--) {
-            heapifyUp(i);
+            heapifyDown(i);
         }
-
     }
 
     public void insert(Key k) {
@@ -68,7 +67,7 @@ public class Heap<Key extends Comparable<Key>> {
     private void heapifyUp(int idx) {
         if (idx == 0)
             return;
-        int parentIdx = idx / 2;
+        int parentIdx = (idx-1) / 2;
         Key parentKey = data.get(parentIdx);
         Key currentKey = data.get(idx);
 
@@ -85,11 +84,13 @@ public class Heap<Key extends Comparable<Key>> {
             return;
         Key nodeKey = data.get(idx);
 
-        int leftId = 2 * idx, rightId = 2 * idx + 1, smallerId;
-        Key leftKey = data.get(leftId), rightKey = data.get(rightId), smallerKey;
+        int leftId = 2 * idx + 1, rightId = 2 * idx + 2, smallerId;
+        Key leftKey = data.get(leftId), rightKey, smallerKey;
 
         // Finding The Smaller Child
         if (rightId < data.size()) {
+            rightKey = data.get(rightId);
+
             if (rightKey.compareTo(leftKey) > 0) {
                 smallerKey = leftKey;
                 smallerId = leftId;
@@ -132,9 +133,9 @@ public class Heap<Key extends Comparable<Key>> {
     /******************* Test **********************/
     public static void main(String[] args) {
         ArrayList<Double> myData = new ArrayList<>();
+        myData.add(2.2);
         myData.add(0.2);
         myData.add(1.2);
-        myData.add(2.2);
         myData.add(1.9);
         Heap myHeap = new Heap(myData);
 //        Heap myHeap = new Heap();
