@@ -20,6 +20,47 @@ public class Heap<Key extends Comparable<Key>> {
         heapifyUp(index);
     }
 
+    public void changeKey(Key prev, Key next) {
+        int idx = find(prev);
+        if (idx == -1)
+            throw new NoSuchElementException();
+
+        data.set(idx, next);
+        if (next.compareTo(prev) < 0)
+            heapifyUp(idx);
+        else
+            heapifyDown(idx);
+    }
+
+    public Key extractMin() {
+        int size = data.size();
+        if (size <= 0)
+            throw new NoSuchElementException();
+
+        Key min = data.get(0);
+
+        if (size > 1) {
+            data.set(0, data.get(size - 1));
+            data.remove(size - 1);
+            heapifyDown(0);
+        }
+        else
+            data.remove(size - 1);
+        return min;
+    }
+
+    public void delete(Key k) {
+        int idx = find(k);
+        int lastNodeIdx = data.size() - 1;
+        Key lastNodeKey = data.get(lastNodeIdx);
+        data.set(idx, lastNodeKey);
+        data.remove(lastNodeIdx);
+        if (lastNodeKey.compareTo(k) > 0)
+            heapifyDown(idx);
+        else
+            heapifyUp(idx);
+    }
+
     public void heapifyUp(int idx) {
         if (idx == 0)
             return;
@@ -68,41 +109,12 @@ public class Heap<Key extends Comparable<Key>> {
         }
     }
 
-    public int find(Key k) {
+    private int find(Key k) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).compareTo(k) == 0)
                 return i;
         }
-        return -1;
-    }
-
-    public void changeKey(Key prev, Key next) {
-        int idx = find(prev);
-        if (idx == -1)
-            throw new NoSuchElementException();
-
-        data.set(idx, next);
-        if (next.compareTo(prev) < 0)
-            heapifyUp(idx);
-        else
-            heapifyDown(idx);
-    }
-
-    public Key extractMin() {
-        int size = data.size();
-        if (size <= 0)
-            throw new NoSuchElementException();
-
-        Key min = data.get(0);
-
-        if (size > 1) {
-            data.set(0, data.get(size - 1));
-            data.remove(size - 1);
-            heapifyDown(0);
-        }
-        else
-            data.remove(size - 1);
-        return min;
+        throw new NoSuchElementException();
     }
 
     public void printAll() {
@@ -130,6 +142,9 @@ public class Heap<Key extends Comparable<Key>> {
         myHeap.printAll();
         myHeap.extractMin();
         System.out.println("****");
+        myHeap.printAll();
+        System.out.println("****");
+        myHeap.delete(1.8);
         myHeap.printAll();
     }
 }
