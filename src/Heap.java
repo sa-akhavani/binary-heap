@@ -88,6 +88,23 @@ public class Heap<Key extends Comparable<Key>> {
             heapifyDown(idx);
     }
 
+    public Key extractMin() {
+        int size = data.size();
+        if (size <= 0)
+            throw new NoSuchElementException();
+
+        Key min = data.get(0);
+
+        if (size > 1) {
+            data.set(0, data.get(size - 1));
+            data.remove(size - 1);
+            heapifyDown(0);
+        }
+        else
+            data.remove(size - 1);
+        return min;
+    }
+
     public void printAll() {
         for (Key k : data)
             System.out.println(k);
@@ -111,6 +128,8 @@ public class Heap<Key extends Comparable<Key>> {
         System.out.println("****");
         myHeap.changeKey(0.99, 1.8);
         myHeap.printAll();
-
+        myHeap.extractMin();
+        System.out.println("****");
+        myHeap.printAll();
     }
 }
