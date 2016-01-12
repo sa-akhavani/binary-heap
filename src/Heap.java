@@ -61,7 +61,7 @@ public class Heap<Key extends Comparable<Key>> {
             heapifyUp(idx);
     }
 
-    public void heapifyUp(int idx) {
+    private void heapifyUp(int idx) {
         if (idx == 0)
             return;
         int parentIdx = idx / 2;
@@ -76,7 +76,7 @@ public class Heap<Key extends Comparable<Key>> {
         }
     }
 
-    public void heapifyDown(int idx) {
+    private void heapifyDown(int idx) {
         if (idx >= data.size() / 2)
             return;
         Key nodeKey = data.get(idx);
@@ -117,6 +117,8 @@ public class Heap<Key extends Comparable<Key>> {
         throw new NoSuchElementException();
     }
 
+
+    /****************** Debugging ******************/
     public void printAll() {
         for (Key k : data)
             System.out.println(k);
