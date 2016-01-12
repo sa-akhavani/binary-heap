@@ -54,6 +54,11 @@ public class Heap<Key extends Comparable<Key>> {
 
     public void delete(Key k) {
         int idx = find(k);
+        if (idx >= data.size() / 2) {
+            data.remove(idx);
+            return;
+        }
+
         int lastNodeIdx = data.size() - 1;
         Key lastNodeKey = data.get(lastNodeIdx);
         data.set(idx, lastNodeKey);
@@ -138,22 +143,27 @@ public class Heap<Key extends Comparable<Key>> {
         myData.add(1.2);
         myData.add(1.9);
         Heap myHeap = new Heap(myData);
-//        Heap myHeap = new Heap();
+
         myHeap.printAll();
         System.out.println("****");
+
         myHeap.insert(1.54);
         myHeap.insert(1.6);
         myHeap.insert(0.9);
         myHeap.insert(0.99);
         myHeap.printAll();
         System.out.println("****");
+
         myHeap.changeKey(0.99, 1.8);
         myHeap.printAll();
+        System.out.println("****");
+
         myHeap.extractMin();
-        System.out.println("****");
         myHeap.printAll();
         System.out.println("****");
-        myHeap.delete(1.8);
+
+        myHeap.delete(1.2);
         myHeap.printAll();
+        System.out.println("****");
     }
 }
